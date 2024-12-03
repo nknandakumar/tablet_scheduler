@@ -1,0 +1,19 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Noto+Serif+Khitan+Small+Script&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+  body{
+    background-color: black;
+    color: white;
+   font-family: "Roboto", sans-serif; ;
+  }
+
+  .heading {
+    @apply font-bold text-center text-5xl sm:text-2xl uppercase
+  }
