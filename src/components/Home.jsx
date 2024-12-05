@@ -1,8 +1,9 @@
 import  { useState } from "react";
-import {Camera ,FolderSearch } from "lucide-react"
+import {Camera ,FolderSearch, LogIn } from "lucide-react"
 const Home = () => {
   const [image, setImage] = useState(null);
   const [error, setError] = useState("");
+  const [result, setResult] = useState("");
 
   // Handle file selection
   const handleFileChange = (e) => {
@@ -13,7 +14,7 @@ const Home = () => {
     }
   };
 
-  // Handle drag-and-drop
+  // Handle drag-and-drop (optional)
   const handleDrop = (e) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
@@ -40,24 +41,30 @@ const Home = () => {
     formData.append("image", image);
 
     try {
-      const response = await fetch("http://localhost:5000/upload", {
+      const response = await fetch("http://localhost:3000/upload", {
         method: "POST",
         body: formData,
-      });
+      }
+      
+    );
 
       if (response.ok) {
-        alert("Image uploaded successfully!");
+         console.log(response);
+         
+        setResult(response);
         setImage(null); // Reset image state after successful submission
       } else {
-        alert("Failed to upload image.");
+        setError("Failed to process image. Please try again.");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred while uploading the image.");
+      setError("An error occurred while processing the image.");
     }
   };
+  
 
   return (
+    <>
     <section className="min-h-screen bg-blue-50 flex flex-col items-center p-5">
       {/* Header Section */}
       <div className="w-full max-w-xl text-center mb-8">
@@ -175,6 +182,10 @@ const Home = () => {
         </button>
       </form>
     </section>
+    <section className="">
+    {result?.length > 0  && <p className="">{result}</p>  }
+    </section>
+    </>
   );
 };
 
